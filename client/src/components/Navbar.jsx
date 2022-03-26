@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../logo.png";
 import * as Icon from "react-feather";
 
-function Navbar() {
+const Navbar = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const updateWindowWidth = () => {
@@ -19,7 +19,7 @@ function Navbar() {
 
   const searchQuery = (e) => {
     e.preventDefault();
-  }
+  };
 
   return (
     <nav className="w-full h-fit bg-gray-800 flex flex-col items-center">
@@ -50,8 +50,7 @@ function Navbar() {
           <Link to="login" className="text-white mx-2 flex flex-col lg:mx-3">
             <span className="text-sm">Hello, User</span>
             <span className="flex">
-              <span className="font-bold px-1">Sign Out</span>
-              <Icon.User color="white" />
+              <span className="font-bold pr-1">Sign Out</span>
             </span>
           </Link>
           {/* <Link to="orders" className="text-white font-bold mx-2 lg:mx-3">
@@ -81,6 +80,6 @@ function Navbar() {
       )}
     </nav>
   );
-}
+};
 
 export default Navbar;
