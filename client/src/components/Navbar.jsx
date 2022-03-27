@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../logo.png";
 import * as Icon from "react-feather";
+import SidebarContext from "../context/SidebarContext";
 
 const Navbar = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -10,12 +11,18 @@ const Navbar = () => {
     setWindowWidth(window.innerWidth);
   };
 
+  const setSidebarDisplay = useContext(SidebarContext).setSidebarDisplay;
+
   useEffect(() => {
     window.addEventListener("resize", updateWindowWidth);
     return () => {
       window.removeEventListener("resize", updateWindowWidth);
     };
   }, []);
+
+  const openSidebar = () => {
+    setSidebarDisplay(true);
+  };
 
   const searchQuery = (e) => {
     e.preventDefault();
@@ -24,19 +31,26 @@ const Navbar = () => {
   return (
     <nav className="w-full h-fit bg-gray-800 flex flex-col items-center">
       <div className="w-full my-1 flex items-center justify-between sm:my-2">
-        <Link to="/" className="w-fit mx-2">
-          <span className="w-fit">
-            <img src={logo} className="w-32" alt="flipstore logo" />
-          </span>
-        </Link>
-        {windowWidth >= 640 && (
-          <form className="flex items-center justify-center sm:flex-1">
+        <div className="mx-2 flex items-center lg:mx-4">
+          <button
+            className="mr-2 text-white hover:text-gray-100 sm:hidden"
+            onClick={openSidebar}
+          >
+            <Icon.Menu size={30} />
+          </button>
+          <Link to="/" className="w-fit">
+            <span className="w-fit">
+              <img src={logo} className="w-32" alt="flipstore logo" />
+            </span>
+          </Link>
+        </div>
+        {windowWidth >= 768 && (
+          <form className="flex items-center justify-center sm:flex-1" onSubmit={searchQuery}>
             <input
               type="text"
               id="searchBar"
               placeholder="Search Flipstore"
               className="h-7 w-48 rounded-l-md outline-0 sm:w-[80%] sm:h-9 sm:px-3"
-              onSubmit={searchQuery}
             />
             <button
               type="submit"
@@ -53,16 +67,19 @@ const Navbar = () => {
               <span className="font-bold pr-1">Sign Out</span>
             </span>
           </Link>
-          {/* <Link to="orders" className="text-white font-bold mx-2 lg:mx-3">
+          <Link
+            to="orders"
+            className="text-white font-bold mx-2 hidden sm:block lg:mx-3"
+          >
             Orders
-          </Link> */}
+          </Link>
           <Link to="cart" className="mx-2 flex lg:mx-3">
             <Icon.ShoppingCart color="white" />
             <span className="text-white text-xl font-bold px-2">{0}</span>
           </Link>
         </div>
       </div>
-      {windowWidth < 640 && (
+      {windowWidth < 768 && (
         <form
           className="w-full flex mt-1 mb-2 items-center justify-center"
           onSubmit={searchQuery}
