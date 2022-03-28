@@ -23,14 +23,14 @@ const Sidebar = () => {
         <Icon.X size={38} />
       </button>
       <div className="bg-gray-700 shadow">
-        <Link to="login" className="text-white px-2 py-4 flex">
+        <Link to="/login" className="text-white px-2 py-4 flex">
           <Icon.User color="white" />
           <span className="mx-2">Hello User,</span>
           <span className="font-bold">Sign Out</span>
         </Link>
       </div>
       <Link
-        to="orders"
+        to="/orders"
         className="block p-3 border-b-2 border-gray-200 hover:bg-gray-300"
       >
         Your Orders

@@ -1,5 +1,5 @@
 #home::before {
-  background: url(../banner-small.jpg) no-repeat center center/cover;
+  background: url(../images/banner-small.jpg) no-repeat center center/cover;
   mask-image: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 1) 55%,
@@ -23,7 +23,7 @@
 
 @media (min-width: 640px) {
   #home::before {
-    background: url(../banner-large.jpg) no-repeat center center/cover;
+    background: url(../images/banner-large.jpg) no-repeat center center/cover;
     height: 370px;
   }
 }

@@ -1,0 +1,32 @@
+{
+  "name": "flipstore-server",
+  "version": "1.0.0",
+  "description": "An e-commerce application demo project inspired by Amazon",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishwast03/flipstore.git"
+  },
+  "author": "Vishwas Tyagi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vishwast03/flipstore/issues"
+  },
+  "homepage": "https://github.com/vishwast03/flipstore#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-validator": "^6.14.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

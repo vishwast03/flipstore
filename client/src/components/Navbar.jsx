@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import logo from "../logo.png";
+import logo from "../images/logo-light.png";
 import * as Icon from "react-feather";
 import SidebarContext from "../context/SidebarContext";
 
@@ -45,7 +45,10 @@ const Navbar = () => {
           </Link>
         </div>
         {windowWidth >= 768 && (
-          <form className="flex items-center justify-center sm:flex-1" onSubmit={searchQuery}>
+          <form
+            className="flex items-center justify-center sm:flex-1"
+            onSubmit={searchQuery}
+          >
             <input
               type="text"
               id="searchBar"
@@ -54,26 +57,26 @@ const Navbar = () => {
             />
             <button
               type="submit"
-              className="h-7 bg-[#5dae3c] px-1 rounded-r-md sm:h-9 sm:px-2"
+              className="h-7 bg-[#5dae3c] hover:bg-[#63bb40] px-1 rounded-r-md sm:h-9 sm:px-2"
             >
               <Icon.Search />
             </button>
           </form>
         )}
         <div className=" flex items-center justify-end">
-          <Link to="login" className="text-white mx-2 flex flex-col lg:mx-3">
+          <Link to="/login" className="text-white mx-2 flex flex-col lg:mx-3">
             <span className="text-sm">Hello, User</span>
             <span className="flex">
-              <span className="font-bold pr-1">Sign Out</span>
+              <span className="font-bold pr-1">Sign In</span>
             </span>
           </Link>
           <Link
-            to="orders"
+            to="/orders"
             className="text-white font-bold mx-2 hidden sm:block lg:mx-3"
           >
             Orders
           </Link>
-          <Link to="cart" className="mx-2 flex lg:mx-3">
+          <Link to="/cart" className="mx-2 flex lg:mx-3">
             <Icon.ShoppingCart color="white" />
             <span className="text-white text-xl font-bold px-2">{0}</span>
           </Link>
