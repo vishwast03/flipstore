@@ -5,22 +5,30 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Signup from "./components/Signup";
-import SidebarState from "./context/SidebarState";
+import { SidebarState } from "./context/SidebarContext";
+import { CartState } from "./context/CartContext";
+import { UserState } from "./context/UserContext";
 
 const App = () => {
+  const host = "http://localhost:5000";
+
   return (
-    <SidebarState>
-      <BrowserRouter>
-        <Navbar />
-        <Sidebar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/cart" element={<Cart />} />
-        </Routes>
-      </BrowserRouter>
-    </SidebarState>
+    <UserState>
+      <CartState>
+        <SidebarState>
+          <BrowserRouter>
+            <Navbar />
+            <Sidebar />
+            <Routes>
+              <Route path="/" element={<Home host={host} />} />
+              <Route path="/login" element={<Login host={host} />} />
+              <Route path="/signup" element={<Signup host={host} />} />
+              <Route path="/cart" element={<Cart />} />
+            </Routes>
+          </BrowserRouter>
+        </SidebarState>
+      </CartState>
+    </UserState>
   );
 };
 

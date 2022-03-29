@@ -1,22 +1,64 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/logo-dark.png";
 
-const Signup = () => {
+const Signup = (props) => {
+  const [credentials, setCredentials] = useState({
+    name: "",
+    email: "",
+    password: "",
+    cpassword: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
+  // TODO: CREATE ALERT WHEN PASSWORD !== CPASSWORD
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { name, email, password, cpassword } = credentials;
+
+    const response = await fetch(`${props.host}/api/auth/createuser`, {
+      method: "POST",
+      body: JSON.stringify({ name, email, password }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+    const jsonResponse = await response.json();
+
+    if (jsonResponse.success) {
+      // TODO: CREATE ALERT - SUCCESS
+      console.log("Account created successfully");
+      localStorage.setItem("auth-token--flipstore", jsonResponse.authToken);
+      navigate("/")
+    } else {
+      // TODO: CREATE ALERT - FALIURE
+      console.log("Invalid credentials");
+    }
+  };
+
   return (
     <div className="w-fit mx-auto mt-14">
       <img src={logo} className="w-44 mx-auto" alt="Flipstore Logo" />
       <div className="w-11/12 mx-auto my-4 py-2 px-4 border-2 border-gray-200 rounded-md sm:w-96">
         <h2 className="text-2xl font-bold">Create new account</h2>
-        <form className="flex flex-col py-4">
-          <label className="font-bold" htmlFor="username">
+        <form className="flex flex-col py-4" onSubmit={handleSubmit}>
+          <label className="font-bold" htmlFor="name">
             Name
           </label>
           <input
             type="text"
-            name="username"
+            name="name"
             className="p-1 my-2 border-2 rounded"
-            id="username"
+            id="name"
+            required
+            value={credentials.name}
+            onChange={handleChange}
           />
           <label className="font-bold" htmlFor="email">
             E-mail
@@ -26,6 +68,9 @@ const Signup = () => {
             name="email"
             className="p-1 my-2 border-2 rounded"
             id="email"
+            required
+            value={credentials.email}
+            onChange={handleChange}
           />
           <label className="font-bold" htmlFor="password">
             Password
@@ -35,6 +80,9 @@ const Signup = () => {
             name="password"
             className="p-1 my-2 border-2 rounded"
             id="password"
+            required
+            value={credentials.password}
+            onChange={handleChange}
           />
           <label className="font-bold" htmlFor="cpassword">
             Confirm Password
@@ -44,6 +92,9 @@ const Signup = () => {
             name="cpassword"
             className="p-1 my-2 border-2 rounded"
             id="cpassword"
+            required
+            value={credentials.cpassword}
+            onChange={handleChange}
           />
           <input
             type="submit"

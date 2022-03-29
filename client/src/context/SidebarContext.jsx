@@ -1,5 +1,13 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
-const SidebarContext = createContext();
+export const SidebarContext = createContext();
 
-export default SidebarContext;
+export const SidebarState = (props) => {
+  const [sidebarDisplay, setSidebarDisplay] = useState(false);
+
+  return (
+    <SidebarContext.Provider value={{ sidebarDisplay, setSidebarDisplay }}>
+      {props.children}
+    </SidebarContext.Provider>
+  );
+};

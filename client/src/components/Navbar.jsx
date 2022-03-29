@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/logo-light.png";
 import * as Icon from "react-feather";
-import SidebarContext from "../context/SidebarContext";
+import { SidebarContext } from "../context/SidebarContext";
+import { UserContext } from "../context/UserContext";
 
 const Navbar = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const navigate = useNavigate();
 
   const updateWindowWidth = () => {
     setWindowWidth(window.innerWidth);
   };
 
   const setSidebarDisplay = useContext(SidebarContext).setSidebarDisplay;
+  const userContext = useContext(UserContext);
 
   useEffect(() => {
     window.addEventListener("resize", updateWindowWidth);
@@ -26,6 +29,11 @@ const Navbar = () => {
 
   const searchQuery = (e) => {
     e.preventDefault();
+  };
+
+  const logoutUser = () => {
+    userContext.logoutUser();
+    navigate("/");
   };
 
   return (
@@ -64,12 +72,24 @@ const Navbar = () => {
           </form>
         )}
         <div className=" flex items-center justify-end">
-          <Link to="/login" className="text-white mx-2 flex flex-col lg:mx-3">
-            <span className="text-sm">Hello, User</span>
-            <span className="flex">
-              <span className="font-bold pr-1">Sign In</span>
-            </span>
-          </Link>
+          {!userContext.user.loginStatus ? (
+            <Link to="/login" className="text-white mx-2 flex flex-col lg:mx-3">
+              <span className="text-sm">Hello, User</span>
+              <span className="flex">
+                <span className="font-bold pr-1">Sign In</span>
+              </span>
+            </Link>
+          ) : (
+            <button
+              className="text-white mx-2 flex flex-col lg:mx-3"
+              onClick={logoutUser}
+            >
+              <span className="text-sm">{`Hello, ${userContext.user.name}`}</span>
+              <span className="flex">
+                <span className="font-bold pr-1">Sign Out</span>
+              </span>
+            </button>
+          )}
           <Link
             to="/orders"
             className="text-white font-bold mx-2 hidden sm:block lg:mx-3"
