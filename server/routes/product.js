@@ -45,6 +45,24 @@ router.post("/addtocart", fetchUser, async (req, res) => {
   }
 });
 
+// ROUTE 4: Remove product from cart using: POST "/api/product/removefromcart" - Login required
+router.post("/removefromcart", fetchUser, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    let user = await User.findById(userId);
+
+    let newCart = user.cart.filter((item) => {
+      return req.body.product_id != item;
+    });
+
+    await User.updateOne({ _id: userId }, { cart: newCart });
+
+    res.send("success");
+  } catch (error) {
+    res.status(500).send("Internal server error");
+  }
+});
+
 // TEMP ROUTE
 router.post(
   "/add",

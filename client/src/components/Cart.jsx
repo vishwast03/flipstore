@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { UserContext } from "../context/UserContext";
 import CartItem from "./CartItem";
+import SubTotal from "./SubTotal";
 
 const Cart = () => {
   const userContext = useContext(UserContext);
@@ -11,19 +12,29 @@ const Cart = () => {
   useEffect(() => {
     if (localStorage.getItem("auth-token--flipstore")) {
       userContext.loginUser();
+      cartContext.getCartItem();
     }
-    cartContext.getCartItem();
-    console.log(cartContext.cart);
   }, []);
+
+  // TODO: CART EMPTY WHILE LOGGED IN
 
   return (
     <div>
       {userContext.user.loginStatus ? (
-        <div className="py-5 bg-gray-100">
-          <div className="text-2xl font-bold text-center">Flipstore Cart</div>
-          {/* userContext.cart.map((item) => {
-            <CartItem />;
-          }) */}
+        <div className="py-5 bg-gray-100 flex flex-col lg:w-full lg:flex-row">
+          <div className="lg:flex-1 lg:ml-6">
+            <div className="text-2xl font-bold text-center sm:text-3xl sm:mb-5">
+              Flipstore Cart
+            </div>
+            <div className="mx-auto md:w-4/5 lg:w-full">
+              {cartContext.cart.map((item) => (
+                <CartItem key={item._id} item={item} />
+              ))}
+            </div>
+          </div>
+          <div className="w-80">
+            <SubTotal />
+          </div>
         </div>
       ) : (
         <div className="w-full py-5 bg-white flex flex-col items-center">

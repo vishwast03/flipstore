@@ -4,6 +4,7 @@ import logo from "../images/logo-light.png";
 import * as Icon from "react-feather";
 import { SidebarContext } from "../context/SidebarContext";
 import { UserContext } from "../context/UserContext";
+import { CartContext } from "../context/CartContext";
 
 const Navbar = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -15,9 +16,11 @@ const Navbar = () => {
 
   const setSidebarDisplay = useContext(SidebarContext).setSidebarDisplay;
   const userContext = useContext(UserContext);
+  const cartContext = useContext(CartContext);
 
   useEffect(() => {
     window.addEventListener("resize", updateWindowWidth);
+    cartContext.getCartItem();
     return () => {
       window.removeEventListener("resize", updateWindowWidth);
     };
@@ -98,7 +101,9 @@ const Navbar = () => {
           </Link>
           <Link to="/cart" className="mx-2 flex lg:mx-3">
             <Icon.ShoppingCart color="white" />
-            <span className="text-white text-xl font-bold px-2">{0}</span>
+            <span className="text-white text-xl font-bold px-2">
+              {cartContext.cart.length}
+            </span>
           </Link>
         </div>
       </div>

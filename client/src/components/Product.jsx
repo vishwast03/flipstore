@@ -4,11 +4,10 @@ import { CartContext } from "../context/CartContext";
 
 const Product = (props) => {
   const product = props.product;
-  const { addToCart } = useContext(CartContext);
+  const cartContext = useContext(CartContext);
 
   const addtocart = () => {
-    console.log(product._id);
-    addToCart(product._id);
+    cartContext.addToCart(product._id);
   };
 
   return (

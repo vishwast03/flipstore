@@ -18,12 +18,15 @@ router.get("/getall", fetchUser, async (req, res) => {
 // ROUTE 2: Create order using: POST "/api/order/create" - Login required
 router.post("/create", fetchUser, async (req, res) => {
   try {
-    let order = await Order.create({
-      product_id: req.body.product_id,
-      user_id: req.user.id,
-      date: new Date(),
+    req.body.productIds.forEach(async (productId) => {
+      await Order.create({
+        product_id: productId,
+        user_id: req.user.id,
+        date: new Date(),
+      });
     });
-    res.json(order);
+
+    res.send("success");
   } catch (error) {
     res.status(500).send("Internal server error");
   }
