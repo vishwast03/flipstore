@@ -1,0 +1,42 @@
+.home {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1500px;
+}
+.home_image {
+  width: 100%;
+  position: relative;
+  z-index: -10;
+}
+.home_imageContainer {
+  width: 100%;
+  position: relative;
+  z-index: -8;
+}
+.home_imageContainer::after {
+  content: "";
+  width: 100%;
+  height: calc(100% - 4px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -5;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 45%,
+    rgba(256, 256, 256, 0.8) 100%
+  );
+}
+
+.home_productsContainer {
+  margin-top: -200px;
+}
+
+.home_row {
+  display: flex;
+  z-index: 1;
+  margin-left: 5px;
+  margin-right: 5px;
+}
